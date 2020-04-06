@@ -6,6 +6,7 @@ const twilio = require('twilio');
 const AccessToken = twilio.jwt.AccessToken;
 const VideoGrant = AccessToken.VideoGrant;
 const bodyParser = require('body-parser');
+const secure = require('ssl-express-www');
 
 if (process.env.NODE_ENV !== 'production') {
   require('dotenv').config();
@@ -19,6 +20,7 @@ const twilioAuthToken = process.env.TWILIO_AUTH_TOKEN;
 
 const client = twilio(twilioAccountSid, twilioAuthToken);
 
+app.use(secure);
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(bodyParser.json());
 app.use(express.static(path.join(__dirname, 'build')));
