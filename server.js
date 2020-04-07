@@ -58,10 +58,7 @@ app.post('/api/rooms', async (req, res) => {
   const maxParticipants = roomType === 'grid' ? 4 : 8;
   const type = roomType === 'grid' ? 'group-small' : 'group';
 
-  let callbackUrl = process.env.API_TWILIO_CALLBACK_URL;
-  if (process.env.NODE_ENV === 'production') {
-    callbackUrl = `https://online-events.herokuapp.com/api/callback`;
-  }
+  let callbackUrl = `${process.env.API_TWILIO_CALLBACK_URL}/api/callback`;
 
   const room = await client.video.rooms.create({
     uniqueName: roomName,
