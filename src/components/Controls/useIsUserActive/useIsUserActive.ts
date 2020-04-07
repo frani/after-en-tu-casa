@@ -4,13 +4,16 @@ import throttle from 'lodash.throttle';
 export default function useIsUserActive() {
   const [isUserActive, setIsUserActive] = useState(true);
   const timeoutIDRef = useRef(0);
+  const isHookMounted = useRef(true);
 
   useEffect(() => {
     const handleUserActivity = throttle(() => {
-      setIsUserActive(true);
-      clearTimeout(timeoutIDRef.current);
-      const timeoutID = window.setTimeout(() => setIsUserActive(false), 5000);
-      timeoutIDRef.current = timeoutID;
+      if (isHookMounted.current) {
+        setIsUserActive(true);
+        clearTimeout(timeoutIDRef.current);
+        const timeoutID = window.setTimeout(() => setIsUserActive(false), 5000);
+        timeoutIDRef.current = timeoutID;
+      }
     }, 500);
 
     handleUserActivity();
@@ -23,6 +26,7 @@ export default function useIsUserActive() {
       window.removeEventListener('click', handleUserActivity);
       window.removeEventListener('keydown', handleUserActivity);
       clearTimeout(timeoutIDRef.current);
+      isHookMounted.current = false;
     };
   }, []);
 
