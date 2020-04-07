@@ -1,6 +1,7 @@
 import React, { useState, ChangeEvent, FormEvent } from 'react';
 import { Redirect } from 'react-router-dom';
 import Video from 'twilio-video';
+import amplitude from 'amplitude-js';
 
 import { Container, Title, Description } from './styles';
 import { useAppState } from '../../state';
@@ -18,25 +19,28 @@ const Register = () => {
     if (localNick) {
       setNick(localNick);
     }
-    window.analytics.track('Event Join');
+    amplitude.getInstance().init('c6d12940463c5c92a3e4118005c4894d');
+    amplitude.getInstance().logEvent('EVENT_JOIN');
   };
 
   if (nick) return <Redirect to="/lobby" />;
   return (
     <Container>
-      <Title>Welcome to Events</Title>
+      <Title>After en tu casa</Title>
       <Description>
-        An experiment in digital events. Please input a nickname to use at the rooms.
+        Una juntada online para pasar la cuarentena entre amigos. Elegí un nick y entrá.
       </Description>
       <SimpleForm
         value={localNick}
         onChange={handleChange}
         onSubmit={handleSubmit}
-        submitText="Join"
-        label="Nickname"
+        submitText="Unirse"
+        label="Nick"
         disabled={!Video.isSupported}
       />
-      {!Video.isSupported && <Alert severity="warning">Please use Safari on iOS mobile.</Alert>}
+      {!Video.isSupported && (
+        <Alert severity="warning">Porfavor entra desde Safari en iPhone.</Alert>
+      )}
     </Container>
   );
 };

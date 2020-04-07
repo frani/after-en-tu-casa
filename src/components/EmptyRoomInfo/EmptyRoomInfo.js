@@ -6,9 +6,9 @@ const EmptyRoomInfo = ({ show }) => (
   <>
     {show && (
       <Container>
-        <Title>Seems to be empty...</Title>
-        <Subtitle>Wait for a bit for someone to join</Subtitle>
-        <Description>Or look for a different room.</Description>
+        <Title>Parece estar vacio...</Title>
+        <Subtitle>Esperate un toque que entre alguien</Subtitle>
+        <Description>O busca una sala diferente.</Description>
       </Container>
     )}
   </>
