@@ -12,6 +12,7 @@ export default function useRoom(
   const [isConnecting, setIsConnecting] = useState(false);
   const disconnectHandlerRef = useRef<() => void>(() => {});
   const localTracksRef = useRef<LocalTrack[]>([]);
+  const isHookMounted = useRef(true);
 
   useEffect(() => {
     // It can take a moment for Video.connect to connect to a room. During this time, the user may have enabled or disabled their
@@ -19,6 +20,12 @@ export default function useRoom(
     // once the user is connected to the room.
     localTracksRef.current = localTracks;
   }, [localTracks]);
+
+  useEffect(() => {
+    return () => {
+      isHookMounted.current = false;
+    };
+  }, []);
 
   const connect = useCallback(
     token => {
@@ -29,7 +36,7 @@ export default function useRoom(
 
           newRoom.once('disconnected', () => {
             // Reset the room only after all other `disconnected` listeners have been called.
-            setTimeout(() => setRoom(new EventEmitter() as Room));
+            setTimeout(() => isHookMounted.current && setRoom(new EventEmitter() as Room));
             window.removeEventListener('beforeunload', disconnectHandlerRef.current);
           });
 
