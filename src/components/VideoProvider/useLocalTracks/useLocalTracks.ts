@@ -67,5 +67,9 @@ export default function useLocalTracks() {
     | LocalVideoTrack
   )[];
 
-  return { localTracks, getLocalVideoTrack };
+  const stopLocalTracks = () => {
+    localTracks.forEach(track => track.stop());
+  };
+
+  return { localTracks, getLocalVideoTrack, stopLocalTracks };
 }

@@ -55,4 +55,5 @@ export const StickyBottomButton = styled(Button)`
   position: fixed;
   width: 240px;
   bottom: 0;
+  margin-bottom: 0;
 `;

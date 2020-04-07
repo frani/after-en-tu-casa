@@ -1,4 +1,5 @@
 import React, { useMemo } from 'react';
+import { Redirect } from 'react-router-dom';
 
 import useUIState from '../UIStateProvider/useUIState/useUIState';
 import useVideoContext from '../../hooks/useVideoContext/useVideoContext';
@@ -11,11 +12,11 @@ import RoomList from './RoomList/RoomList';
 
 import Collapse from '@material-ui/core/Collapse';
 import Hidden from '@material-ui/core/Hidden';
-import { Button, MobileDrawer, DesktopDrawer, MenuButton } from './styles';
+import { Button, MobileDrawer, DesktopDrawer, MenuButton, StickyBottomButton } from './styles';
 
 const Sidebar = () => {
-  const { nick, getToken, isFetching } = useAppState();
-  const { isConnecting, connect, room, setRoomType } = useVideoContext();
+  const { nick, setNick, getToken, isFetching } = useAppState();
+  const { isConnecting, connect, room, setRoomType, stopLocalTracks } = useVideoContext();
   const { showMobileUi, showMobileSidebar, toggleMobileSidebar } = useUIState();
   const { roomsState } = useRooms();
   const roomState = useRoomState();
@@ -63,6 +64,15 @@ const Sidebar = () => {
     return canJoinRoom && roomsState.rooms.length < roomNames.length;
   }, [canJoinRoom, roomsState]);
 
+  const handleLeaveLobby = () => {
+    setNick('');
+    stopLocalTracks();
+    if (room.sid) {
+      room.disconnect();
+    }
+    return <Redirect to="/" />;
+  };
+
   const drawer = (
     <>
       <Button onClick={() => handleCreateRoom('grid')} disabled={!canCreateRoom}>
@@ -77,6 +87,7 @@ const Sidebar = () => {
         canJoinRoom={canJoinRoom}
         activeRoom={room.name}
       />
+      <StickyBottomButton onClick={handleLeaveLobby}>Logout</StickyBottomButton>
     </>
   );
 
