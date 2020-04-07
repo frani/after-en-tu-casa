@@ -10,10 +10,11 @@ import useScreenShareToggle from '../../../hooks/useScreenShareToggle/useScreenS
 import useScreenShareParticipant from '../../../hooks/useScreenShareParticipant/useScreenShareParticipant';
 import useVideoContext from '../../../hooks/useVideoContext/useVideoContext';
 
-export const SCREEN_SHARE_TEXT = 'Share Screen';
-export const STOP_SCREEN_SHARE_TEXT = 'Stop Sharing Screen';
-export const SHARE_IN_PROGRESS_TEXT = 'Cannot share screen when another user is sharing';
-export const SHARE_NOT_SUPPORTED_TEXT = 'Screen sharing is not supported with this browser';
+export const SCREEN_SHARE_TEXT = 'Compartir Pantalla';
+export const STOP_SCREEN_SHARE_TEXT = 'No Compartir Pantalla';
+export const SHARE_IN_PROGRESS_TEXT =
+  'No se puede compartir pantalla cuando otro usuario ya lo hace.';
+export const SHARE_NOT_SUPPORTED_TEXT = 'No se puede compartir pantalla en este browser.';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -32,7 +33,8 @@ export default function ToggleScreenShareButton(props: { disabled?: boolean }) {
   const [isScreenShared, toggleScreenShare] = useScreenShareToggle();
   const screenShareParticipant = useScreenShareParticipant();
   const { room } = useVideoContext();
-  const disableScreenShareButton = screenShareParticipant && screenShareParticipant !== room.localParticipant;
+  const disableScreenShareButton =
+    screenShareParticipant && screenShareParticipant !== room.localParticipant;
   const isScreenShareSupported = navigator.mediaDevices && navigator.mediaDevices.getDisplayMedia;
   const isDisabled = props.disabled || disableScreenShareButton || !isScreenShareSupported;
 

@@ -59,6 +59,7 @@ app.post('/api/rooms', async (req, res) => {
   const type = roomType === 'grid' ? 'group-small' : 'group';
 
   let callbackUrl = `${process.env.API_TWILIO_CALLBACK_URL}/api/callback`;
+  console.log('Callback', callbackUrl);
 
   const room = await client.video.rooms.create({
     uniqueName: roomName,
@@ -73,6 +74,7 @@ app.post('/api/rooms', async (req, res) => {
 app.post('/api/callback', async (req, res) => {
   const eventName = req.body.StatusCallbackEvent;
   const eventData = req.body;
+  console.log('Called', eventName);
 
   switch (eventName) {
     case 'room-created':

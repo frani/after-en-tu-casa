@@ -28,7 +28,7 @@ const Register = () => {
     <Container>
       <Title>After en tu casa</Title>
       <Description>
-        Una juntada online para pasar la cuarentena entre amigos. Elegí un nick y entrá.
+        Una juntada online para pasar la cuarentena entre amigos. Elegí tu nick y entrá.
       </Description>
       <SimpleForm
         value={localNick}

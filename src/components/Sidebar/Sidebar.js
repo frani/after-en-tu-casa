@@ -66,10 +66,10 @@ const Sidebar = () => {
   const drawer = (
     <>
       <Button onClick={() => handleCreateRoom('grid')} disabled={!canCreateRoom}>
-        Create Small Room
+        Crear Sala Chica
       </Button>
       <Button onClick={() => handleCreateRoom('collaboration')} disabled={!canCreateRoom}>
-        Create Large Room
+        Crear Sala Grande
       </Button>
       <RoomList
         rooms={roomsState.rooms}

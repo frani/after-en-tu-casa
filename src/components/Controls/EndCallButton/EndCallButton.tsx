@@ -21,7 +21,7 @@ export default function EndCallButton() {
 
   return (
     <Tooltip
-      title={'Leave Room'}
+      title={'Abandonar Sala'}
       onClick={() => room.disconnect()}
       placement="top"
       PopperProps={{ disablePortal: true }}

@@ -11,12 +11,12 @@ export default function LocalVideoPreview() {
 
   return (
     <Container>
-      <Title>Video Preview</Title>
-      <Subtitle>Only you can see this video</Subtitle>
+      <Title>Preview del Video</Title>
+      <Subtitle>Solo vos podes ver esto</Subtitle>
       {videoTrack ? <StyledVideoTrack track={videoTrack} isLocal /> : <NoVideo />}
       <Description>
-        Make sure everything is working and when you're ready join any of the rooms in the sidebar,
-        or feel free to create your own.
+        Cuando todo este listo, entra en cualquiera de las charlas del costado. Sino podes crear una
+        nueva con los botones arriba en el menu.
       </Description>
     </Container>
   );

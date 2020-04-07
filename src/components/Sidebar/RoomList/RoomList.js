@@ -5,7 +5,7 @@ import RoomListItem from '../RoomListItem/RoomListItem';
 import { List } from './styles';
 
 const RoomList = ({ rooms, onRoomClick, activeRoom, canJoinRoom }) => (
-  <List headerText="Open Rooms">
+  <List headerText="Charlas Disponibles">
     {rooms &&
       rooms.map(room => (
         <RoomListItem

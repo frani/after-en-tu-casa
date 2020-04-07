@@ -85,11 +85,11 @@ const Chat = () => {
         <Form onSubmit={onSubmit}>
           <InputBase
             onChange={onChange}
-            placeholder={'Send a chat message...'}
+            placeholder={'Enviar un mensaje...'}
             value={message}
             fullWidth
           />
-          <Submit disabled={isBlank(message)}>Send</Submit>
+          <Submit disabled={isBlank(message)}>Enviar</Submit>
         </Form>
       </SendMessageContainer>
     </ChatDrawer>
