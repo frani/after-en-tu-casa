@@ -8,6 +8,8 @@ import SwipeableDrawer from '@material-ui/core/SwipeableDrawer';
 import IconButton from '@material-ui/core/IconButton';
 import MenuIcon from '@material-ui/icons/Menu';
 
+const sidebarWidth = '240px';
+
 export const MenuButton = styled(({ handleToggle, ...rest }) => (
   <Hidden mdUp>
     <IconButton edge="start" onClick={handleToggle} {...rest}>
@@ -28,7 +30,7 @@ export const DesktopDrawer = styled(Drawer).attrs({
 })`
   display: inline;
   & .MuiPaper-root {
-    width: 240px;
+    width: ${sidebarWidth};
     z-index: 1;
   }
 `;
@@ -38,22 +40,25 @@ export const MobileDrawer = styled(SwipeableDrawer).attrs({
 })`
   display: inline;
   & .MuiPaper-root {
-    width: 240px;
+    width: ${sidebarWidth};
     z-index: 1;
   }
 `;
 
-export const Button = styled(MaterialUIButton).attrs({
-  color: 'primary',
+export const Button = styled(MaterialUIButton).attrs(props => ({
+  color: props.color || 'primary',
   variant: 'contained',
-})`
+}))`
   border-radius: 0;
-  margin-bottom: 5px;
+  border-top: 1px solid white;
+  width: ${sidebarWidth};
 `;
 
-export const StickyBottomButton = styled(Button)`
+export const StickyBottomContainer = styled.div`
   position: fixed;
-  width: 240px;
   bottom: 0;
   margin-bottom: 0;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
 `;

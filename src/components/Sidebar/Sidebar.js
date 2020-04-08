@@ -1,4 +1,4 @@
-import React, { useMemo } from 'react';
+import React, { useMemo, useState } from 'react';
 import { Redirect } from 'react-router-dom';
 
 import useUIState from '../UIStateProvider/useUIState/useUIState';
@@ -9,15 +9,17 @@ import useRoomState from '../../hooks/useRoomState/useRoomState';
 import useRooms from '../RoomsProvider/useRooms/useRooms';
 
 import RoomList from './RoomList/RoomList';
+import HelpDialog from './HelpDialog/HelpDialog';
 
 import Collapse from '@material-ui/core/Collapse';
 import Hidden from '@material-ui/core/Hidden';
-import { Button, MobileDrawer, DesktopDrawer, MenuButton, StickyBottomButton } from './styles';
+import { Button, MobileDrawer, DesktopDrawer, MenuButton, StickyBottomContainer } from './styles';
 
 const Sidebar = () => {
   const { nick, setNick, getToken, isFetching } = useAppState();
   const { isConnecting, connect, room, setRoomType, stopLocalTracks } = useVideoContext();
   const { showMobileUi, showMobileSidebar, toggleMobileSidebar } = useUIState();
+  const [showHelpDialog, setShowHelpDialog] = useState(false);
   const { roomsState } = useRooms();
   const roomState = useRoomState();
 
@@ -73,6 +75,14 @@ const Sidebar = () => {
     return <Redirect to="/" />;
   };
 
+  const handleSupportRequest = () => {
+    setShowHelpDialog(true);
+  };
+
+  const handleClose = () => {
+    setShowHelpDialog(false);
+  };
+
   const drawer = (
     <>
       <Button onClick={() => handleCreateRoom('grid')} disabled={!canCreateRoom}>
@@ -87,7 +97,13 @@ const Sidebar = () => {
         canJoinRoom={canJoinRoom}
         activeRoom={room.name}
       />
-      <StickyBottomButton onClick={handleLeaveLobby}>Logout</StickyBottomButton>
+      <StickyBottomContainer>
+        <HelpDialog open={showHelpDialog} handleClose={handleClose} />
+        <Button onClick={handleSupportRequest} color="secondary">
+          Algo no funciona?
+        </Button>
+        <Button onClick={handleLeaveLobby}>Logout</Button>
+      </StickyBottomContainer>
     </>
   );
 
