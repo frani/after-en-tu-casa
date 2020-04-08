@@ -8,6 +8,7 @@ import { ThemeProvider } from 'styled-components';
 
 import App from './App';
 import AppStateProvider, { useAppState } from './state';
+import AnalyticsProvider from './components/AnalyticsProvider/AnalyticsProvider';
 import UIStateProvider from './components/UIStateProvider/UIStateProvider';
 import { BrowserRouter as Router, Redirect, Route, Switch } from 'react-router-dom';
 import ErrorDialog from './components/ErrorDialog/ErrorDialog';
@@ -34,22 +35,24 @@ ReactDOM.render(
       <StylesProvider injectFirst>
         <CssBaseline />
         <Router>
-          <AppStateProvider>
-            <UIStateProvider>
-              <Switch>
-                <Route exact path="/">
-                  <Register />
-                </Route>
-                <PrivateRoute path="/lobby">
-                  <VideoApp />
-                </PrivateRoute>
-                <PrivateRoute path="/room/:URLRoomName">
-                  <VideoApp />
-                </PrivateRoute>
-                <Redirect to="/" />
-              </Switch>
-            </UIStateProvider>
-          </AppStateProvider>
+          <AnalyticsProvider>
+            <AppStateProvider>
+              <UIStateProvider>
+                <Switch>
+                  <Route exact path="/">
+                    <Register />
+                  </Route>
+                  <PrivateRoute path="/lobby">
+                    <VideoApp />
+                  </PrivateRoute>
+                  <PrivateRoute path="/room/:URLRoomName">
+                    <VideoApp />
+                  </PrivateRoute>
+                  <Redirect to="/" />
+                </Switch>
+              </UIStateProvider>
+            </AppStateProvider>
+          </AnalyticsProvider>
         </Router>
       </StylesProvider>
     </ThemeProvider>
