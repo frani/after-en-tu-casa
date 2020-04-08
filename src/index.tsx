@@ -35,8 +35,8 @@ ReactDOM.render(
       <StylesProvider injectFirst>
         <CssBaseline />
         <Router>
-          <AnalyticsProvider>
-            <AppStateProvider>
+          <AppStateProvider>
+            <AnalyticsProvider>
               <UIStateProvider>
                 <Switch>
                   <Route exact path="/">
@@ -51,8 +51,8 @@ ReactDOM.render(
                   <Redirect to="/" />
                 </Switch>
               </UIStateProvider>
-            </AppStateProvider>
-          </AnalyticsProvider>
+            </AnalyticsProvider>
+          </AppStateProvider>
         </Router>
       </StylesProvider>
     </ThemeProvider>

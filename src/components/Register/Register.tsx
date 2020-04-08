@@ -11,7 +11,6 @@ import Alert from '@material-ui/lab/Alert';
 const Register = () => {
   const { nick, setNick } = useAppState();
   const [localNick, setLocalNick] = useState('');
-  // @ts-ignore
   const { amplitude } = useAnalytics();
 
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => setLocalNick(e.target.value);
