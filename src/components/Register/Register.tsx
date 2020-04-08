@@ -19,7 +19,7 @@ const Register = () => {
     e.preventDefault();
     if (localNick) {
       setNick(localNick);
-      logEvent('EVENT_SUPER_JOIN');
+      logEvent('EVENT_JOIN');
     }
   };
 
