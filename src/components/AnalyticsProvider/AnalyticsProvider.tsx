@@ -1,4 +1,4 @@
-import React, { useContext, useEffect, createContext, ReactNode } from 'react';
+import React, { useEffect, createContext, ReactNode } from 'react';
 import Amplitude, { AmplitudeClient } from 'amplitude-js';
 
 import { useAppState } from '../../state';
@@ -33,5 +33,3 @@ export default function AnalyticsProvider({ children }: AnalyticsProviderProps) 
     </AmplitudeContext.Provider>
   );
 }
-
-export const useAnalytics = () => useContext(AmplitudeContext);

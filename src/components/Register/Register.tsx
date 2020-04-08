@@ -1,7 +1,7 @@
 import React, { useState, ChangeEvent, FormEvent } from 'react';
 import { Redirect } from 'react-router-dom';
 import Video from 'twilio-video';
-import { useAnalytics } from '../AnalyticsProvider/AnalyticsProvider';
+import useAnalytics from '../../hooks/useAnalytics/useAnalytics';
 
 import { Container, Title, Description } from './styles';
 import { useAppState } from '../../state';
