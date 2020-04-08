@@ -11,7 +11,7 @@ import Alert from '@material-ui/lab/Alert';
 const Register = () => {
   const { nick, setNick } = useAppState();
   const [localNick, setLocalNick] = useState('');
-  const { amplitude } = useAnalytics();
+  const { logEvent } = useAnalytics();
 
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => setLocalNick(e.target.value);
 
@@ -19,7 +19,7 @@ const Register = () => {
     e.preventDefault();
     if (localNick) {
       setNick(localNick);
-      amplitude.logEvent('Testings');
+      logEvent('EVENT_SUPER_JOIN');
     }
   };
 

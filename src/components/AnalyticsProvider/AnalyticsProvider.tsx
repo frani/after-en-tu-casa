@@ -1,10 +1,11 @@
 import React, { useEffect, createContext, ReactNode } from 'react';
-import Amplitude, { AmplitudeClient } from 'amplitude-js';
+import Amplitude from 'amplitude-js';
 
+import { Callback } from '../../types';
 import { useAppState } from '../../state';
 
 declare type AmplitudeContextType = {
-  amplitude: AmplitudeClient;
+  logEvent: Callback;
 };
 
 export const AmplitudeContext = createContext<AmplitudeContextType>(null!);
@@ -27,9 +28,9 @@ export default function AnalyticsProvider({ children }: AnalyticsProviderProps) 
     }
   }, [nick]);
 
-  return (
-    <AmplitudeContext.Provider value={{ amplitude: Amplitude.getInstance() }}>
-      {children}
-    </AmplitudeContext.Provider>
-  );
+  const logEvent = (event: string, data?: any, callback?: Callback) => {
+    Amplitude.getInstance().logEvent(event, data, callback);
+  };
+
+  return <AmplitudeContext.Provider value={{ logEvent }}>{children}</AmplitudeContext.Provider>;
 }

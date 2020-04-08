@@ -19,10 +19,10 @@ const useStyles = makeStyles((theme: Theme) =>
 export default function ToggleAudioButton(props: { disabled?: boolean }) {
   const classes = useStyles();
   const { showChatModal, toggleChatModal } = useUIState();
-  const { amplitude } = useAnalytics();
+  const { logEvent } = useAnalytics();
 
   const handleClick = () => {
-    !showChatModal && amplitude.logEvent('CHAT_OPEN');
+    !showChatModal && logEvent('CHAT_OPEN');
     toggleChatModal();
   };
 

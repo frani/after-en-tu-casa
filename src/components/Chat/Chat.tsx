@@ -32,7 +32,7 @@ const Chat = () => {
   const [message, setMessage] = useState('');
   const [messages, setMessages] = useState<IMessage[]>([]);
   const { showChatModal, toggleChatModal } = useUIState();
-  const { amplitude } = useAnalytics();
+  const { logEvent } = useAnalytics();
 
   const ws = useRef<WebSocket>(null!);
   const messageListRef = useRef<HTMLUListElement | null>(null);
@@ -44,7 +44,7 @@ const Chat = () => {
     if (isBlank(message)) return;
 
     ws.current.send(JSON.stringify({ identity: nick, message }));
-    amplitude.logEvent('CHAT_MESSAGE_SENT');
+    logEvent('CHAT_MESSAGE_SENT');
 
     setMessage('');
   };
