@@ -1,4 +1,4 @@
-# Setup:
+# Setup
 
 - Fill the following enviroment variables for a Twilio account or sub-account:
 
@@ -11,6 +11,6 @@
 
   - API_TWILIO_CALLBACK_URL=https://15968772.ngrok.io
 
-# To Run:
+# To Run
 
 - `npm install && npm run`
