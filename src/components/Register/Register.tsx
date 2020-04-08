@@ -20,6 +20,8 @@ const Register = () => {
       setNick(localNick);
     }
     amplitude.getInstance().init('c6d12940463c5c92a3e4118005c4894d');
+    const identify = new amplitude.Identify().set('nick', 'mau');
+    amplitude.identify(identify);
     amplitude.getInstance().logEvent('EVENT_JOIN');
   };
 
@@ -39,7 +41,7 @@ const Register = () => {
         disabled={!Video.isSupported}
       />
       {!Video.isSupported && (
-        <Alert severity="warning">Porfavor entra desde Safari en iPhone.</Alert>
+        <Alert severity="warning">Por favor entra desde Safari en iPhone.</Alert>
       )}
     </Container>
   );
