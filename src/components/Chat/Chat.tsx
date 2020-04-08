@@ -4,6 +4,7 @@ import useVideoContext from '../../hooks/useVideoContext/useVideoContext';
 import { useAppState } from '../../state';
 import useUIState from '../UIStateProvider/useUIState/useUIState';
 import isBlank from '../../util/isBlank';
+import useAnalytics from '../../hooks/useAnalytics/useAnalytics';
 
 import InputBase from '@material-ui/core/InputBase';
 import Divider from '@material-ui/core/Divider';
@@ -31,6 +32,7 @@ const Chat = () => {
   const [message, setMessage] = useState('');
   const [messages, setMessages] = useState<IMessage[]>([]);
   const { showChatModal, toggleChatModal } = useUIState();
+  const { amplitude } = useAnalytics();
 
   const ws = useRef<WebSocket>(null!);
   const messageListRef = useRef<HTMLUListElement | null>(null);
@@ -42,6 +44,8 @@ const Chat = () => {
     if (isBlank(message)) return;
 
     ws.current.send(JSON.stringify({ identity: nick, message }));
+    amplitude.logEvent('CHAT_MESSAGE_SENT');
+
     setMessage('');
   };
 
