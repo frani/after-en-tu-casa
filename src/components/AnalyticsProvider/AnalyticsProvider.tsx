@@ -6,6 +6,7 @@ import { useAppState } from '../../state';
 
 declare type AmplitudeContextType = {
   logEvent: Callback;
+  logEventWithTimestamp: Callback;
 };
 
 export const AmplitudeContext = createContext<AmplitudeContextType>(null!);
@@ -32,5 +33,18 @@ export default function AnalyticsProvider({ children }: AnalyticsProviderProps) 
     Amplitude.getInstance().logEvent(event, data, callback);
   };
 
-  return <AmplitudeContext.Provider value={{ logEvent }}>{children}</AmplitudeContext.Provider>;
+  const logEventWithTimestamp = (
+    event: string,
+    timestamp: number,
+    data?: any,
+    callback?: Callback
+  ) => {
+    Amplitude.getInstance().logEventWithTimestamp(event, data, timestamp, callback);
+  };
+
+  return (
+    <AmplitudeContext.Provider value={{ logEvent, logEventWithTimestamp }}>
+      {children}
+    </AmplitudeContext.Provider>
+  );
 }
