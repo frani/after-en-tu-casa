@@ -2,6 +2,7 @@ import React from 'react';
 import styled from 'styled-components';
 
 import { Callback } from '../../../types';
+import useAnalytics from '../../../hooks/useAnalytics/useAnalytics';
 
 import Dialog from '@material-ui/core/Dialog';
 import WhatsAppIcon from '@material-ui/icons/WhatsApp';
@@ -29,12 +30,19 @@ interface Props {
 }
 
 export default function HelpDialog({ open, handleClose }: Props) {
+  const { logEvent } = useAnalytics();
+
   return (
     <Dialog onClose={handleClose} open={open}>
       <Content>
         <Typography variant="h6">Necesitas Ayuda?</Typography>
         <Description>Soporte instantaneo si mensajeas al +542616027616</Description>
-        <Button variant="contained" color="primary" startIcon={<WhatsAppIcon />}>
+        <Button
+          variant="contained"
+          color="primary"
+          startIcon={<WhatsAppIcon />}
+          onClick={() => logEvent('WHATSAPP_HELP_REQUEST')}
+        >
           <StyledLink href="https://is.gd/eMZbVS" target="_blank" rel="noopener">
             Contactame por WhatsApp
           </StyledLink>

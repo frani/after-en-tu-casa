@@ -6,6 +6,7 @@ import Fab from '@material-ui/core/Fab';
 import Tooltip from '@material-ui/core/Tooltip';
 
 import useVideoContext from '../../../hooks/useVideoContext/useVideoContext';
+import useAnalytics from '../../../hooks/useAnalytics/useAnalytics';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -18,11 +19,18 @@ const useStyles = makeStyles((theme: Theme) =>
 export default function EndCallButton() {
   const classes = useStyles();
   const { room } = useVideoContext();
+  const { logEvent } = useAnalytics();
+
+  const handleClick = () => {
+    room.disconnect();
+
+    logEvent('ROOM_LEAVE');
+  };
 
   return (
     <Tooltip
       title={'Abandonar Sala'}
-      onClick={() => room.disconnect()}
+      onClick={handleClick}
       placement="top"
       PopperProps={{ disablePortal: true }}
     >

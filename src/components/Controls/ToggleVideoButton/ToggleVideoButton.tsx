@@ -7,6 +7,7 @@ import Videocam from '@material-ui/icons/Videocam';
 import VideocamOff from '@material-ui/icons/VideocamOff';
 
 import useLocalVideoToggle from '../../../hooks/useLocalVideoToggle/useLocalVideoToggle';
+import useAnalytics from '../../../hooks/useAnalytics/useAnalytics';
 
 const useStyles = makeStyles((theme: Theme) =>
   createStyles({
@@ -19,6 +20,13 @@ const useStyles = makeStyles((theme: Theme) =>
 export default function ToggleVideoButton(props: { disabled?: boolean }) {
   const classes = useStyles();
   const [isVideoEnabled, toggleVideoEnabled] = useLocalVideoToggle();
+  const { logEvent } = useAnalytics();
+
+  const handleClick = () => {
+    isVideoEnabled ? logEvent('VIDEO_DISABLE') : logEvent('VIDEO_ENABLE');
+
+    toggleVideoEnabled();
+  };
 
   return (
     <Tooltip
@@ -26,7 +34,7 @@ export default function ToggleVideoButton(props: { disabled?: boolean }) {
       placement="top"
       PopperProps={{ disablePortal: true }}
     >
-      <Fab className={classes.fab} onClick={toggleVideoEnabled} disabled={props.disabled}>
+      <Fab className={classes.fab} onClick={handleClick} disabled={props.disabled}>
         {isVideoEnabled ? <Videocam /> : <VideocamOff />}
       </Fab>
     </Tooltip>

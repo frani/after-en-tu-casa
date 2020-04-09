@@ -7,6 +7,7 @@ import { useAppState } from '../../state';
 import roomNames, { getRoomName } from '../../util/roomNames';
 import useRoomState from '../../hooks/useRoomState/useRoomState';
 import useRooms from '../RoomsProvider/useRooms/useRooms';
+import useAnalytics from '../../hooks/useAnalytics/useAnalytics';
 
 import RoomList from './RoomList/RoomList';
 import HelpDialog from './HelpDialog/HelpDialog';
@@ -22,6 +23,7 @@ const Sidebar = () => {
   const [showHelpDialog, setShowHelpDialog] = useState(false);
   const { roomsState } = useRooms();
   const roomState = useRoomState();
+  const { logEvent } = useAnalytics();
 
   const handleCreateRoom = async roomType => {
     if (!canCreateRoom) return;
@@ -43,6 +45,8 @@ const Sidebar = () => {
 
     setRoomType(roomType);
     connect(token);
+
+    logEvent('ROOM_CREATE', { roomType });
   };
 
   const handleRoomClick = async (roomName, roomType) => {
@@ -72,11 +76,15 @@ const Sidebar = () => {
     if (room.sid) {
       room.disconnect();
     }
+
+    logEvent('LOBBY_LEAVE');
     return <Redirect to="/" />;
   };
 
   const handleSupportRequest = () => {
     setShowHelpDialog(true);
+
+    logEvent('HELP_MODAL_OPEN');
   };
 
   const handleClose = () => {
