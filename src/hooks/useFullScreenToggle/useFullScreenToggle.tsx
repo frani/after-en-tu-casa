@@ -1,8 +1,10 @@
 import { useCallback, useState, useEffect } from 'react';
 import fscreen from 'fscreen';
+import useAnalytics from '../useAnalytics/useAnalytics';
 
 export default function useFullScreenToggle() {
   const [isFullScreen, setIsFullScreen] = useState<Boolean>(!!fscreen.fullscreenElement);
+  const { logEvent } = useAnalytics();
 
   useEffect(() => {
     const onFullScreenChange = () => setIsFullScreen(!!fscreen.fullscreenElement);
@@ -13,8 +15,16 @@ export default function useFullScreenToggle() {
   }, []);
 
   const toggleFullScreen = useCallback(() => {
-    isFullScreen ? fscreen.exitFullscreen() : fscreen.requestFullscreen(document.documentElement);
-  }, [isFullScreen]);
+    if (isFullScreen) {
+      fscreen.exitFullscreen();
+
+      logEvent('FULL_SCREEN_EXIT');
+    } else {
+      fscreen.requestFullscreen(document.documentElement);
+
+      logEvent('FULL_SCREEN_ENTER');
+    }
+  }, [isFullScreen, logEvent]);
 
   return [isFullScreen, toggleFullScreen] as const;
 }

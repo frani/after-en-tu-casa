@@ -6,7 +6,6 @@ import FullscreenExitIcon from '@material-ui/icons/FullscreenExit';
 import IconButton from '@material-ui/core/IconButton';
 
 import useFullScreenToggle from '../../hooks/useFullScreenToggle/useFullScreenToggle';
-import useAnalytics from '../../hooks/useAnalytics/useAnalytics';
 
 const FullscreenButton = styled(({ gridSize, children, ...rest }) => (
   <IconButton {...rest}>{children}</IconButton>
@@ -32,19 +31,9 @@ declare type Props = {
 
 export default function ToggleFullscreenButton({ gridSize }: Props) {
   const [isFullScreen, toggleFullScreen] = useFullScreenToggle();
-  const { logEvent } = useAnalytics();
-
-  const handleClick = () => {
-    const date = new Date();
-    const timestamp = date.getTime();
-    isFullScreen
-      ? logEvent('FULL_SCREEN_CLOSE', timestamp)
-      : logEvent('FULL_SCREEN_OPEN', timestamp);
-    toggleFullScreen();
-  };
 
   return (
-    <FullscreenButton aria-label={`full screen`} onClick={handleClick} gridSize={gridSize}>
+    <FullscreenButton aria-label={`full screen`} onClick={toggleFullScreen} gridSize={gridSize}>
       {isFullScreen ? <FullscreenExitIcon fontSize="large" /> : <FullscreenIcon fontSize="large" />}
     </FullscreenButton>
   );
