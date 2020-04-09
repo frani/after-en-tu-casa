@@ -1,23 +1,21 @@
 import React from 'react';
-import { createStyles, makeStyles, Theme } from '@material-ui/core/styles';
+import styled from 'styled-components';
 
 import CallEnd from '@material-ui/icons/CallEnd';
-import Fab from '@material-ui/core/Fab';
 import Tooltip from '@material-ui/core/Tooltip';
+import MUIFab from '@material-ui/core/Fab';
 
 import useVideoContext from '../../../hooks/useVideoContext/useVideoContext';
 import useAnalytics from '../../../hooks/useAnalytics/useAnalytics';
 
-const useStyles = makeStyles((theme: Theme) =>
-  createStyles({
-    fab: {
-      margin: theme.spacing(1),
-    },
-  })
-);
+export const Fab = styled(MUIFab)`
+  margin: ${props => props.theme.spacing(0.5)}px;
+  @media (min-width: 600px) {
+    margin: ${props => props.theme.spacing(1)}px;
+  }
+`;
 
 export default function EndCallButton() {
-  const classes = useStyles();
   const { room } = useVideoContext();
   const { logEvent } = useAnalytics();
 
@@ -34,7 +32,7 @@ export default function EndCallButton() {
       placement="top"
       PopperProps={{ disablePortal: true }}
     >
-      <Fab className={classes.fab} color="primary">
+      <Fab color="primary">
         <CallEnd />
       </Fab>
     </Tooltip>

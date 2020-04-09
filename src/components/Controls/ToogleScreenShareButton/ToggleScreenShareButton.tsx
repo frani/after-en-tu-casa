@@ -1,7 +1,7 @@
 import React from 'react';
-import { createStyles, makeStyles, Theme } from '@material-ui/core/styles';
+import styled from 'styled-components';
 
-import Fab from '@material-ui/core/Fab';
+import MUIFab from '@material-ui/core/Fab';
 import ScreenShare from '@material-ui/icons/ScreenShare';
 import StopScreenShare from '@material-ui/icons/StopScreenShare';
 import Tooltip from '@material-ui/core/Tooltip';
@@ -16,20 +16,18 @@ export const SHARE_IN_PROGRESS_TEXT =
   'No se puede compartir pantalla cuando otro usuario ya lo hace.';
 export const SHARE_NOT_SUPPORTED_TEXT = 'No se puede compartir pantalla en este browser.';
 
-const useStyles = makeStyles((theme: Theme) =>
-  createStyles({
-    fab: {
-      margin: theme.spacing(1),
-      '&[disabled]': {
-        color: 'rgba(225, 225, 225, 0.8)',
-        backgroundColor: 'rgba(175, 175, 175, 0.6);',
-      },
-    },
-  })
-);
+export const Fab = styled(MUIFab)`
+  margin: ${props => props.theme.spacing(0.5)}px;
+  &[disabled] {
+    color: rgba(225, 225, 225, 0.8);
+    backgroundcolor: rgba(175, 175, 175, 0.6);
+  }
+  @media (min-width: 600px) {
+    margin: ${props => props.theme.spacing(1)}px;
+  }
+`;
 
 export default function ToggleScreenShareButton(props: { disabled?: boolean }) {
-  const classes = useStyles();
   const [isScreenShared, toggleScreenShare] = useScreenShareToggle();
   const screenShareParticipant = useScreenShareParticipant();
   const { room } = useVideoContext();
@@ -62,7 +60,7 @@ export default function ToggleScreenShareButton(props: { disabled?: boolean }) {
       <div>
         {/* The div element is needed because a disabled button will not emit hover events and we want to display
           a tooltip when screen sharing is disabled */}
-        <Fab className={classes.fab} onClick={toggleScreenShare} disabled={isDisabled}>
+        <Fab onClick={toggleScreenShare} disabled={isDisabled}>
           {isScreenShared ? <StopScreenShare /> : <ScreenShare />}
         </Fab>
       </div>

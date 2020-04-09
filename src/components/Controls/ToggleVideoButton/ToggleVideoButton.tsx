@@ -1,24 +1,22 @@
 import React from 'react';
-import { createStyles, makeStyles, Theme } from '@material-ui/core/styles';
+import styled from 'styled-components';
 
-import Fab from '@material-ui/core/Fab';
 import Tooltip from '@material-ui/core/Tooltip';
 import Videocam from '@material-ui/icons/Videocam';
 import VideocamOff from '@material-ui/icons/VideocamOff';
+import MUIFab from '@material-ui/core/Fab';
 
 import useLocalVideoToggle from '../../../hooks/useLocalVideoToggle/useLocalVideoToggle';
 import useAnalytics from '../../../hooks/useAnalytics/useAnalytics';
 
-const useStyles = makeStyles((theme: Theme) =>
-  createStyles({
-    fab: {
-      margin: theme.spacing(1),
-    },
-  })
-);
+export const Fab = styled(MUIFab)`
+  margin: ${props => props.theme.spacing(0.5)}px;
+  @media (min-width: 600px) {
+    margin: ${props => props.theme.spacing(1)}px;
+  }
+`;
 
 export default function ToggleVideoButton(props: { disabled?: boolean }) {
-  const classes = useStyles();
   const [isVideoEnabled, toggleVideoEnabled] = useLocalVideoToggle();
   const { logEvent } = useAnalytics();
 
@@ -34,7 +32,7 @@ export default function ToggleVideoButton(props: { disabled?: boolean }) {
       placement="top"
       PopperProps={{ disablePortal: true }}
     >
-      <Fab className={classes.fab} onClick={handleClick} disabled={props.disabled}>
+      <Fab onClick={handleClick} disabled={props.disabled}>
         {isVideoEnabled ? <Videocam /> : <VideocamOff />}
       </Fab>
     </Tooltip>

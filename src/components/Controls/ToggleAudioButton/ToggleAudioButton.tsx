@@ -1,24 +1,22 @@
 import React from 'react';
-import { createStyles, makeStyles, Theme } from '@material-ui/core/styles';
+import styled from 'styled-components';
 
-import Fab from '@material-ui/core/Fab';
 import Mic from '@material-ui/icons/Mic';
 import MicOff from '@material-ui/icons/MicOff';
 import Tooltip from '@material-ui/core/Tooltip';
+import MUIFab from '@material-ui/core/Fab';
 
 import useLocalAudioToggle from '../../../hooks/useLocalAudioToggle/useLocalAudioToggle';
 import useAnalytics from '../../../hooks/useAnalytics/useAnalytics';
 
-const useStyles = makeStyles((theme: Theme) =>
-  createStyles({
-    fab: {
-      margin: theme.spacing(1),
-    },
-  })
-);
+export const Fab = styled(MUIFab)`
+  margin: ${props => props.theme.spacing(0.5)}px;
+  @media (min-width: 600px) {
+    margin: ${props => props.theme.spacing(1)}px;
+  }
+`;
 
 export default function ToggleAudioButton(props: { disabled?: boolean }) {
-  const classes = useStyles();
   const [isAudioEnabled, toggleAudioEnabled] = useLocalAudioToggle();
   const { logEvent } = useAnalytics();
 
@@ -34,12 +32,7 @@ export default function ToggleAudioButton(props: { disabled?: boolean }) {
       placement="top"
       PopperProps={{ disablePortal: true }}
     >
-      <Fab
-        className={classes.fab}
-        onClick={handleClick}
-        disabled={props.disabled}
-        data-cy-audio-toggle
-      >
+      <Fab onClick={handleClick} disabled={props.disabled} data-cy-audio-toggle>
         {isAudioEnabled ? <Mic /> : <MicOff />}
       </Fab>
     </Tooltip>

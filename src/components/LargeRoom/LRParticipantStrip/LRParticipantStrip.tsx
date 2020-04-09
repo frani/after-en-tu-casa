@@ -9,7 +9,8 @@ import useSelectedParticipant from '../../VideoProvider/useSelectedParticipant/u
 const Container = styled.div`
   display: flex;
   flex: 1;
-  overflow: auto;
+  overflow-x: auto;
+  overflow-y: hidden;
   position: absolute;
   bottom: 0;
   left: 0;

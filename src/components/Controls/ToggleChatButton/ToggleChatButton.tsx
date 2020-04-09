@@ -1,23 +1,21 @@
 import React from 'react';
-import { createStyles, makeStyles, Theme } from '@material-ui/core/styles';
+import styled from 'styled-components';
 
-import Fab from '@material-ui/core/Fab';
 import ChatIcon from '@material-ui/icons/Chat';
 import Tooltip from '@material-ui/core/Tooltip';
+import MUIFab from '@material-ui/core/Fab';
 
 import useAnalytics from '../../../hooks/useAnalytics/useAnalytics';
 import useUIState from '../../UIStateProvider/useUIState/useUIState';
 
-const useStyles = makeStyles((theme: Theme) =>
-  createStyles({
-    fab: {
-      margin: theme.spacing(1),
-    },
-  })
-);
+export const Fab = styled(MUIFab)`
+  margin: ${props => props.theme.spacing(0.5)}px;
+  @media (min-width: 600px) {
+    margin: ${props => props.theme.spacing(1)}px;
+  }
+`;
 
 export default function ToggleAudioButton(props: { disabled?: boolean }) {
-  const classes = useStyles();
   const { showChatModal, toggleChatModal } = useUIState();
   const { logEvent } = useAnalytics();
 
@@ -28,7 +26,7 @@ export default function ToggleAudioButton(props: { disabled?: boolean }) {
 
   return (
     <Tooltip title={'Chat'} placement="top" PopperProps={{ disablePortal: true }}>
-      <Fab className={classes.fab} onClick={handleClick} disabled={props.disabled}>
+      <Fab onClick={handleClick} disabled={props.disabled}>
         <ChatIcon />
       </Fab>
     </Tooltip>
