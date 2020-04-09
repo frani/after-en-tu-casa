@@ -19,7 +19,7 @@ const useStyles = makeStyles((theme: Theme) =>
       justifyContent: 'center',
       position: 'absolute',
       right: '50%',
-      transform: 'translate(50%, 30px)',
+      transform: 'translate(50%, 20px)',
       bottom: '20px',
       zIndex: 1,
       transition: 'opacity 1.2s, transform 1.2s, visibility 0s 1.2s',
