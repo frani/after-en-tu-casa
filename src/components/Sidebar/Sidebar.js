@@ -51,6 +51,10 @@ const Sidebar = () => {
 
   const handleRoomClick = async (roomName, roomType) => {
     if (!canJoinRoom) return;
+    roomState === 'connected'
+      ? logEvent('ROOM_SWITCH', { roomType })
+      : logEvent('ROOM_JOIN', { roomType });
+
     if (roomState === 'connected') room.disconnect();
     const token = await getToken(nick, roomName);
     setRoomType(roomType);
